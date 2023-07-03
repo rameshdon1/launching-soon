@@ -1,3 +1,7 @@
+* {
+  font-family: 'Inter', sans-serif;
+}
+
 .style-blue-1 .fill-bg {
   fill: #cdd3ff;
 }
@@ -3810,16 +3814,16 @@ body.state-fixed-body {
   overflow: hidden;
 }
 .custom_fonts * {
-  font-family: 'Lato', Helvetica, sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 .custom_fonts .font-lato * {
-  font-family: 'Lato', sans-serif !important;
+  font-family: 'Inter', sans-serif;
 }
 .custom_fonts .font-work-sans * {
-  font-family: 'Work Sans', sans-serif !important;
+  font-family: 'Inter', sans-serif;
 }
 .custom_fonts .font-source-code-pro * {
-  font-family: 'Source Code Pro', monospace !important;
+  font-family: 'Inter', sans-serif;
 }
 .comps p {
   margin-bottom: 1em;
@@ -4175,10 +4179,7 @@ pre {
 .content_box .ce-code__textarea,
 .content_box code,
 .content_box code span {
-  font-family: Consolas, 'Andale Mono WT', 'Andale Mono', 'Lucida Console',
-    'Lucida Sans Typewriter', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono',
-    'Liberation Mono', 'Nimbus Mono L', Monaco, 'Courier New', Courier,
-    monospace !important;
+  font-family: 'Inter', sans-serif;
   border-radius: 4px;
   overflow: auto;
 }
@@ -7947,7 +7948,7 @@ select.text-input {
 .message__bubble_error {
   margin-top: 5px;
   color: #c23934;
-  font-family: Courier, monospace;
+  font-family: 'Inter', sans-serif;
 }
 .message__bubble_link {
   text-decoration: underline;
@@ -17681,7 +17682,7 @@ body .text--04__big_text * {
   margin-bottom: 0;
 }
 .comps .code-02__code {
-  font-family: monospace !important;
+  font-family: 'Inter', sans-serif;
 }
 .code-02__block_wrapper {
   overflow: auto;
@@ -20494,7 +20495,7 @@ html .bg-accent-color .features-09__item--new,
   border-radius: 999px;
   border: 1px solid #eee;
   background-color: white;
-  font-family: monospace;
+  font-family: 'Inter', sans-serif;
 }
 @media (max-width: 760px) {
   .steps-01__number {
@@ -20752,7 +20753,7 @@ html .bg-accent-color .features-09__item--new,
   display: inline-block;
   height: 20px;
   width: 20px;
-  font-family: monospace;
+  font-family: 'Inter', sans-serif;
   border: 1px solid #4d61fc;
   border-radius: 50%;
   margin-right: 7px;
@@ -21400,8 +21401,7 @@ html .bg-accent-color .features-09__item--new,
   white-space: initial;
 }
 .blog_post-01 .gist .blob-code-inner {
-  font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas,
-    Liberation Mono, monospace !important;
+  font-family: 'Inter', sans-serif;
 }
 .blog_post-01 .read-more {
   padding-top: 30px;
@@ -22515,7 +22515,7 @@ html.with-featherlight {
   width: 25px;
   cursor: pointer;
   text-align: center;
-  font-family: Arial, sans-serif;
+  font-family: 'Inter', sans-serif;
   background: #fff;
   background: rgba(255, 255, 255, 0.3);
   color: #000;
@@ -23272,4 +23272,8 @@ body .featherlight .featherlight-content {
 .pswp__bg {
   transition: none !important;
   background-color: rgba(0, 0, 0, 0.8);
+}
+
+* {
+  font-family: 'Inter', sans-serif;
 }
