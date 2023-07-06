@@ -55,16 +55,5 @@ function optInTime() {
   const minutes = currentDate.getMinutes();
   const seconds = currentDate.getSeconds();
 
-  return (formattedDate =
-    month +
-    '/' +
-    day +
-    '/' +
-    year +
-    ' ' +
-    hours +
-    ':' +
-    minutes +
-    ':' +
-    seconds);
+  return (formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`);
 }
