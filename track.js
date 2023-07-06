@@ -10,7 +10,10 @@ const submitForm = async () => {
     longitude: '',
     timezone: '',
     cc: '',
+    region_code: '',
     region: '',
+    city: '',
+    country: '',
   };
 
   await fetch('http://ip-api.com/json/')
@@ -25,7 +28,10 @@ const submitForm = async () => {
       finalResponse['longitude'] = geoIp.lon;
       finalResponse['timezone'] = geoIp.timezone;
       finalResponse['cc'] = geoIp.countryCode;
-      finalResponse['region'] = geoIp.region;
+      finalResponse['region_code'] = geoIp.region;
+      finalResponse['region'] = geoIp.regionName;
+      finalResponse['city'] = geoIp.city;
+      finalResponse['country'] = geoIp.country;
     })
     .finally(() => sendEmail(finalResponse));
 };
