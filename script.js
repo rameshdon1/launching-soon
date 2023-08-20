@@ -1,34 +1,52 @@
 // Validate form and show notification
-function validateAndNotify() {
-  let name = document.getElementById('name').value;
-  let email = document.getElementById('email').value;
-
-  if (name == '' || email == '') {
-    alert('Please fill in both fields');
-    return;
-  }
-
-  // Call API
-  callApi(name, email).then((response) => {
-    if (response.status == 200) {
-      showPopover();
-    }
-  });
-}
-
-// API call
-async function callApi(name, email) {
-  // API logic
-  return Promise.resolve({ status: 200 });
-}
-
-// Show popover
-function showPopover() {
-  // Popover display logic
-}
+const body = document.body;
+const overlay = document.getElementById('overlay');
+const overlayLayer = document.getElementById('overlay-layer');
 
 const menuIcon = document.querySelector('.btn');
 menuIcon.addEventListener('click', () => {
   menuIcon.classList.toggle('active');
   menuIcon.classList.toggle('not-active');
+});
+
+const emailForm = document.getElementById('email-form');
+
+emailForm.addEventListener('submit', async (event) => {
+  event.preventDefault(); // prevent the form from submitting normally
+
+  const formData = new FormData(emailForm); // get the form data
+  const url = 'https://example.com/api/endpoint'; // replace with your API endpoint
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const data = await response.json();
+    console.log(data); // do something with the response data
+
+    //select popup by id
+    //toggle popup here
+
+    //get body and toggle the overflow and backgrond blur smoothly
+    body.classList.toggle('overflow-hidden');
+    body.classList.toggle('blur-md');
+  } catch (error) {
+    body.classList.toggle('overflow-hidden');
+    overlay.classList.toggle('hidden');
+    overlayLayer.classList.toggle('hidden');
+    console.error('Error:', error);
+  }
+});
+
+overlayLayer.addEventListener('click', (event) => {
+  body.classList.toggle('overflow-hidden');
+
+  overlay.classList.toggle('hidden');
+  overlayLayer.classList.toggle('hidden');
 });

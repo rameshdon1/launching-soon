@@ -10,7 +10,7 @@
   </head>
 
   <body
-    class="bg-black text-white h-screen grid grid-rows-[60px_1fr_50px] grid-cols-[1.5rem_1fr_1fr_1.5rem] md:grid-cols-[3rem_1fr_1fr_3rem] lg:grid-rows-[100px_1fr_50px] lg:grid-cols-[8rem_1fr_1fr_8rem] xl:grid-cols-[8rem_1fr_1fr_8rem] 2xl:grid-cols-[80rem_1fr_1fr_80rem]"
+    class="bg-black text-white grid grid-rows-[60px_1fr_50px] grid-cols-[1.5rem_1fr_1fr_1.5rem] md:grid-cols-[3rem_1fr_1fr_3rem] lg:grid-rows-[100px_1fr_50px] lg:grid-cols-[8rem_1fr_1fr_8rem] xl:grid-cols-[8rem_1fr_1fr_8rem] 2xl:grid-cols-[20rem_1fr_1fr_20rem] 3xl:grid-cols-[40rem_1fr_1fr_40rem] 4xl:grid-cols-[50rem_1fr_1fr_50rem]"
   >
     <div
       class="col-start-2 col-end-4 row-start-1 row-end-2 flex justify-between items-center"
@@ -41,28 +41,30 @@
       </nav>
     </div>
     <main
-      class="col-start-2 col-end-4 row-start-2 row-end-3 flex flex-col justify-evenly relative"
+      class="col-start-2 col-end-4 row-start-2 row-end-3 flex flex-col justify-evenly"
     >
       <div
-        class="flex items-center justify-end sm:justify-between flex-col-reverse sm:flex-row mt-8 sm:mt-0 min-h-[calc(100vh-100px)]"
+        class="flex items-center justify-end sm:justify-between flex-col-reverse sm:flex-row mt-8 sm:mt-0 h-[calc(100dvh-60px-2rem)] sm:h-[calc(100dvh-60px)] transition-all duration-200 ease-in-out"
       >
         <div class="mb-10 w-full">
           <h1 class="font-medium font-inter text-2xl sm:text-3xl w-full">
             Bet the most controversial news on
             <span class="font-bold font-poppins">XtremBet</span>
           </h1>
-          <h3>Launching soon on Polygon chain.</h3>
-          <button
-            type="button"
-            class="inline-block rounded bg-blue-500 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] mt-8"
+          <h3 class="sm:mt-3 text-lg font-inter">
+            Launching soon on Polygon chain.
+          </h3>
+          <button type="button">Nofify Me</button>
+          <a
+            class="inline-block px-5 py-2 mx-auto text-white bg-blue-600 rounded-full hover:bg-blue-700 md:mx-0"
           >
-            Nofify Me
-          </button>
+            Button Text
+          </a>
         </div>
         <img
-          src="./assets/generated-side-img.jpg"
+          src="./assets/coming-soon-img-transparent.png"
           alt="Image"
-          class="object-cover aspect-video md:aspect-video ml-7 h-[400px] md:h-[400px] lg:h-[550px] overflow-hidden"
+          class="object-cover aspect-video min-h-[200px] h-[60dvh] md:h-[400px] lg:h-[550px] overflow-hidden"
         />
       </div>
 
@@ -85,10 +87,44 @@
         </div>
       </div>
 
-      Email List Here
+      <!-- Email List Here -->
+
+      <form id="email-form">
+        <label for="name">Name</label>
+        <input
+          id="full-name"
+          class="text-gray-800 placeholder-gray-400"
+          type="text"
+          name="full-name"
+          placeholder="Full name"
+          required
+          minlength="3"
+        />
+        <label for="email">Email</label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          required
+          placeholder="Email"
+        />
+        <button type="submit">Notify Me</button>
+      </form>
     </main>
     <footer class="col-start-2 col-end-4 row-start-3 row-end-4">
       @2022 XtremBet
     </footer>
+
+    <!-- Popover Logic -->
+    <div
+      id="overlay-layer"
+      class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-screen w-screen z-20 backdrop-filter backdrop-blur-sm transition-all duration-300 ease-in-out hidden"
+    ></div>
+    <div
+      id="overlay"
+      class="text-red-500 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-4 rounded shadow-lg z-30 bg-white hidden"
+    >
+      Thanks for your interest.
+    </div>
   </body>
 </html>
