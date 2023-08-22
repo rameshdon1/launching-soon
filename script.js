@@ -1,7 +1,17 @@
-// Validate form and show notification
 const body = document.body;
-const overlay = document.getElementById('overlay');
-const overlayLayer = document.getElementById('overlay-layer');
+const thankyouModal = document.getElementById('thank-you');
+const thankyouBackdrop = document.getElementById('thank-you-backdrop');
+
+const menuIcon = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+
+const emailForm = document.getElementById('email-form');
+
+const formLoader = document.getElementById('form-loader');
+
+const submitBtn = document.getElementById('submit-btn');
+
+const thankyouClose = document.getElementById('thank-you-close');
 
 const mailchimpuserdata = {
   email_address: '',
@@ -37,61 +47,99 @@ fetch('https://api.ipify.org?format=json')
   })
   .catch((error) => console.error(error));
 
-const menuIcon = document.getElementById('hamburger');
+//TODO: sidebar menu on mobile screen
 menuIcon.addEventListener('click', () => {
   menuIcon.classList.toggle('active');
   menuIcon.classList.toggle('not-active');
+  mobileMenu.classList.toggle('translate-x-0');
+  body.classList.toggle('overflow-hidden');
 });
 
-const emailForm = document.getElementById('email-form');
+let formSubmitted = false;
+let successfulRequest = false;
+let previousName = '';
+let previousEmail = '';
 
 emailForm.addEventListener('submit', async (event) => {
   event.preventDefault();
 
   const formData = new FormData(emailForm);
   const formObjectData = Object.fromEntries(formData.entries());
+  console.log(formSubmitted);
 
-  mailchimpuserdata['email_address'] = formObjectData['EMAIL'];
-  mailchimpuserdata['full_name'] = splitString(formObjectData['FNAME']);
-  mailchimpuserdata['timestamp_signup'] = new Date(Date.now())
-    .toISOString()
-    .replace(/\.\d{3}Z$/, 'Z');
-  mailchimpuserdata['timestamp_opt'] = new Date(Date.now())
-    .toISOString()
-    .replace(/\.\d{3}Z$/, 'Z');
+  if (
+    !successfulRequest ||
+    previousName !== formObjectData['FNAME'] ||
+    (previousEmail !== formObjectData['EMAIL'] && !formSubmitted)
+  ) {
+    previousName = formObjectData['FNAME'];
+    previousEmail = formObjectData['EMAIL'];
 
-  //NEXTJS project as api www.samratdhital.com.np
-  fetch('http://localhost:3000/email-subscription', {
-    method: 'POST',
-    body: JSON.stringify(mailchimpuserdata),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
+    formSubmitted = true;
+    formLoader.classList.toggle('hidden');
+    submitBtn.disabled = true;
 
-  //spreadsheet api 👇👇
-  // await submitForm(formObjectData);
+    console.log(formObjectData, 'datat');
 
-  //toggle overflow from body and unhide overlay and the background
-  body.classList.toggle('overflow-hidden');
-  overlay.classList.toggle('hidden');
-  overlayLayer.classList.toggle('hidden');
+    mailchimpuserdata['email_address'] = formObjectData['EMAIL'];
+    mailchimpuserdata['full_name'] = splitString(formObjectData['FNAME']);
+    mailchimpuserdata['timestamp_signup'] = new Date(Date.now())
+      .toISOString()
+      .replace(/\.\d{3}Z$/, 'Z');
+    mailchimpuserdata['timestamp_opt'] = new Date(Date.now())
+      .toISOString()
+      .replace(/\.\d{3}Z$/, 'Z');
+
+    //NEXTJS project as api www.samratdhital.com.np
+    fetch('https://samratdhital.com.np/email-subscription', {
+      method: 'POST',
+      body: JSON.stringify(mailchimpuserdata),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((res) => {
+        formSubmitted = false;
+        successfulRequest = true;
+
+        body.classList.toggle('overflow-hidden');
+        thankyouModal.classList.toggle('hidden');
+        thankyouBackdrop.classList.toggle('hidden');
+
+        formLoader.classList.toggle('hidden');
+        submitBtn.disabled = false; // Set disabled to false
+      })
+      .catch(() => {
+        console.log('errorrrrr');
+        formSubmitted = false;
+
+        // //FIXME: only on the successful request
+        // body.classList.toggle('overflow-hidden');
+        // thankyouModal.classList.toggle('hidden');
+        // thankyouBackdrop.classList.toggle('hidden');
+
+        formLoader.classList.toggle('hidden');
+        submitBtn.disabled = false; // Set disabled to false
+      });
+  } else {
+    body.classList.toggle('overflow-hidden');
+    thankyouModal.classList.toggle('hidden');
+    thankyouBackdrop.classList.toggle('hidden');
+  }
 });
 
-overlayLayer.addEventListener('click', (event) => {
+// handles when thank you model is clicked outside
+thankyouBackdrop.addEventListener('click', (event) => {
   body.classList.toggle('overflow-hidden');
 
-  overlay.classList.toggle('hidden');
-  overlayLayer.classList.toggle('hidden');
+  thankyouModal.classList.toggle('hidden');
+  thankyouBackdrop.classList.toggle('hidden');
 });
-
-//TODO: sidebar menu on mobile screen
-//select a sidebar element
-const mobileMenu = document.getElementById('mobile-menu');
-const hamburgerIcon = document.getElementById('hamburger');
-hamburgerIcon.addEventListener('click', () => {
-  mobileMenu.classList.toggle('translate-x-0');
+thankyouClose.addEventListener('click', (event) => {
   body.classList.toggle('overflow-hidden');
+
+  thankyouModal.classList.toggle('hidden');
+  thankyouBackdrop.classList.toggle('hidden');
 });
 
 // Get the user's location using the Geolocation API
@@ -160,4 +208,19 @@ function splitString(a) {
   const first = splitArray[0];
   const rest = splitArray.length > 1 ? splitArray.slice(1).join(' ') : '';
   return [first, rest];
+}
+
+//scroll this id to center of the screen
+function scrollToSection() {
+  const section = document.querySelector(`#email-form`);
+  const sectionHeight = section.getBoundingClientRect().height;
+  const screenHeight = window.innerHeight;
+  const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+  const screenCenter = screenHeight / 2;
+  const sectionCenter = sectionTop + sectionHeight / 2;
+  const y = sectionCenter - screenCenter;
+  window.scrollTo({
+    top: y,
+    behavior: 'smooth',
+  });
 }
