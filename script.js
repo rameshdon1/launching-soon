@@ -13,6 +13,8 @@ const submitBtn = document.getElementById('submit-btn');
 
 const thankyouClose = document.getElementById('thank-you-close');
 
+const notifyMe = document.getElementById('notify-me-button');
+
 const mailchimpuserdata = {
   email_address: '',
   full_name: [],
@@ -46,6 +48,20 @@ fetch('https://api.ipify.org?format=json')
     mailchimpuserdata.ip_opt = ipAddress;
   })
   .catch((error) => console.error(error));
+
+notifyMe.addEventListener('click', () => {
+  const section = document.querySelector(`#email-form`);
+  const sectionHeight = section.getBoundingClientRect().height;
+  const screenHeight = window.innerHeight;
+  const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+  const screenCenter = screenHeight / 2;
+  const sectionCenter = sectionTop + sectionHeight / 2;
+  const y = sectionCenter - screenCenter;
+  window.scrollTo({
+    top: y,
+    behavior: 'smooth',
+  });
+});
 
 //TODO: sidebar menu on mobile screen
 menuIcon.addEventListener('click', () => {
@@ -208,19 +224,4 @@ function splitString(a) {
   const first = splitArray[0];
   const rest = splitArray.length > 1 ? splitArray.slice(1).join(' ') : '';
   return [first, rest];
-}
-
-//scroll this id to center of the screen
-function scrollToSection() {
-  const section = document.querySelector(`#email-form`);
-  const sectionHeight = section.getBoundingClientRect().height;
-  const screenHeight = window.innerHeight;
-  const sectionTop = section.getBoundingClientRect().top + window.scrollY;
-  const screenCenter = screenHeight / 2;
-  const sectionCenter = sectionTop + sectionHeight / 2;
-  const y = sectionCenter - screenCenter;
-  window.scrollTo({
-    top: y,
-    behavior: 'smooth',
-  });
 }
