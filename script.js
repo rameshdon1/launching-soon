@@ -202,12 +202,13 @@ async function getUserLocation() {
   try {
     const { latitude: gpsLatitude, longitude: gpsLongitude } =
       await getLocation();
-    console.log('I am returning gps data', gpsLatitude, gpsLongitude);
+    console.log('GPS Permission Granted');
+    console.log('Returning GPS Data', gpsLatitude, gpsLongitude);
     return { latitude: gpsLatitude, longitude: gpsLongitude };
   } catch (e) {
-    console.log(e, 'I think gps permission is off');
+    console.error('GPS Permission Denied');
   }
-  console.log('I am returning ipDATA');
+  console.log('Returning IP Data', ipLatitude, ipLongitude);
   return { latitude: ipLatitude, longitude: ipLongitude };
 }
 
