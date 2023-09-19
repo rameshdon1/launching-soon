@@ -15,6 +15,15 @@ const thankyouClose = document.getElementById('thank-you-close');
 
 const notifyMe = document.getElementById('notify-me-button');
 
+const bannerImage = document.getElementById('banner-img');
+
+const fullQualityImage = new Image();
+fullQualityImage.src = './assets/coming-soon-img-transparent.png';
+fullQualityImage.onload = () => {
+  bannerImage.src = fullQualityImage.src;
+  bannerImage.classList.remove('blur-md');
+};
+
 const mailchimpuserdata = {
   email_address: '',
   full_name: [],

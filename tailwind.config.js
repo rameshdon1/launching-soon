@@ -35,8 +35,7 @@ module.exports = {
         'open-sans': ['Open Sans', 'sans-serif'],
       },
       backgroundImage: {
-        'blockchain-bg-1': "url('./assets/blockchain-outline-1.jpg')",
-        'blockchain-bg-2': "url('./assets/blockchain-outline-2.jpg')",
+        waves: "url('./assets/waves.jpg')",
       },
     },
   },
