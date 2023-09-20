@@ -74,6 +74,11 @@ notifyMe.addEventListener('click', () => {
 
 //TODO: sidebar menu on mobile screen
 menuIcon.addEventListener('click', () => {
+  //Make the mobile Sidemenu smooth in transition.
+  mobileMenu.classList.add('transition-all');
+  mobileMenu.classList.add('duration-[700ms]');
+  mobileMenu.classList.add('ease-in-out');
+
   menuIcon.classList.toggle('active');
   menuIcon.classList.toggle('not-active');
   mobileMenu.classList.toggle('translate-x-0');
